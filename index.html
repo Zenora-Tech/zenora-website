@@ -3,385 +3,610 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Zenora Tech | Coming Soon</title>
-
-<!-- TAB LOGO -->
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="shortcut icon" href="logo.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-:root{
-    --primary:#4b49a7;
-    --primary-light:#6b68d8;
-    --dark:#151515;
-    --text:#2a2a2a;
-    --muted:#6f6f6f;
-    --white:#ffffff;
-    --line:#ececf6;
+:root {
+  --ink:    #0e0e12;
+  --ink2:   #1c1c24;
+  --brand:  #4b49a7;
+  --brand2: #6c6bd4;
+  --muted:  #8a8a9a;
+  --line:   #e8e8f0;
+  --bg:     #f6f6fa;
+  --white:  #ffffff;
 }
 
-body{
-    font-family:'Inter',sans-serif;
-    background:
-    radial-gradient(circle at top right, rgba(75,73,167,.08), transparent 30%),
-    radial-gradient(circle at bottom left, rgba(75,73,167,.06), transparent 35%),
-    #f8f9fc;
-    color:var(--text);
-    min-height:100vh;
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* subtle shapes */
-body::before,
-body::after{
-    content:"";
-    position:fixed;
-    width:500px;
-    height:500px;
-    background:rgba(75,73,167,.03);
-    transform:rotate(35deg);
-    z-index:0;
+/* ── noise grain overlay ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .028;
+  pointer-events: none;
+  z-index: 100;
 }
 
-body::before{
-    top:-250px;
-    left:-120px;
+/* ── layout ── */
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
-body::after{
-    right:-200px;
-    bottom:-220px;
+/* ── nav bar ── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 52px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(246,246,250,.85);
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  animation: fadeDown .6s ease both;
 }
 
-.wrapper{
-    position:relative;
-    z-index:2;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:35px 20px;
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
 }
 
-.container{
-    width:100%;
-    max-width:1180px;
-    background:rgba(255,255,255,.92);
-    border:1px solid rgba(255,255,255,.8);
-    backdrop-filter: blur(18px);
-    border-radius:28px;
-    overflow:hidden;
-    box-shadow:0 25px 70px rgba(20,20,20,.08);
+.nav-logo img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
 }
 
-/* top banner */
-.banner img{
-    width:100%;
-    display:block;
+.nav-logo span {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--ink);
+  letter-spacing: -.02em;
 }
 
-/* content */
-.content{
-    padding:55px;
-    display:grid;
-    grid-template-columns:1.15fr .85fr;
-    gap:45px;
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
 }
 
-.badge{
-    display:inline-block;
-    padding:10px 16px;
-    border-radius:50px;
-    background:#f1f1fd;
-    color:var(--primary);
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.08em;
-    margin-bottom:20px;
+.pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a5f3a0;
+  box-shadow: 0 0 0 0 rgba(165,243,160,.6);
+  animation: pulse 2s infinite;
 }
 
-h1{
-    font-size:58px;
-    line-height:1.05;
-    font-weight:800;
-    margin-bottom:18px;
-    color:#1c1c1c;
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(165,243,160,.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(165,243,160,0); }
+  100% { box-shadow: 0 0 0 0 rgba(165,243,160,0); }
 }
 
-h1 span{
-    color:var(--primary);
+/* ── hero ── */
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
 }
 
-.desc{
-    font-size:18px;
-    line-height:1.8;
-    color:var(--muted);
-    max-width:650px;
+/* left panel */
+.hero-left {
+  padding: 72px 52px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeUp .7s .1s ease both;
 }
 
-.btns{
-    display:flex;
-    gap:16px;
-    flex-wrap:wrap;
-    margin-top:32px;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 28px;
 }
 
-.btn{
-    text-decoration:none;
-    padding:15px 24px;
-    border-radius:14px;
-    font-weight:600;
-    transition:.3s ease;
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: var(--brand);
+  border-radius: 2px;
 }
 
-.primary-btn{
-    background:var(--primary);
-    color:#fff;
+h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+  color: var(--ink);
+  margin-bottom: 24px;
 }
 
-.primary-btn:hover{
-    transform:translateY(-3px);
+h1 em {
+  font-style: normal;
+  color: var(--brand);
 }
 
-.outline-btn{
-    border:1px solid var(--line);
-    color:var(--text);
-    background:#fff;
+.desc {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 480px;
+  margin-bottom: 44px;
 }
 
-.outline-btn:hover{
-    border-color:var(--primary);
-    color:var(--primary);
+/* actions */
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* right card */
-.card{
-    background:#fcfcff;
-    border:1px solid var(--line);
-    border-radius:24px;
-    padding:28px;
+.btn {
+  text-decoration: none;
+  padding: 14px 26px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+  cursor: pointer;
 }
 
-.card h3{
-    font-size:24px;
-    margin-bottom:22px;
+.btn-primary {
+  background: var(--brand);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(75,73,167,.28);
 }
 
-.info{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(75,73,167,.38);
 }
 
-.row{
-    display:flex;
-    gap:14px;
-    align-items:flex-start;
+.btn-ghost {
+  border: 1.5px solid var(--line);
+  color: var(--ink2);
+  background: var(--white);
 }
 
-.icon{
-    width:44px;
-    height:44px;
-    border-radius:12px;
-    background:#f0f0ff;
-    color:var(--primary);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:18px;
-    font-weight:700;
+.btn-ghost:hover {
+  border-color: var(--brand2);
+  color: var(--brand);
 }
 
-.row strong{
-    display:block;
-    font-size:14px;
-    margin-bottom:4px;
-    color:#111;
+/* divider strip */
+.strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 52px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
 }
 
-.row span{
-    color:var(--muted);
-    font-size:15px;
+.tag {
+  padding: 6px 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-/* footer */
-.footer{
-    border-top:1px solid var(--line);
-    padding:22px 55px;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:18px;
+/* right panel */
+.hero-right {
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  animation: fadeUp .7s .22s ease both;
 }
 
-.footer small{
-    color:#7d7d7d;
+.banner-wrap {
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+  /* keep the wide banner at a fixed height on desktop so it doesn't dominate */
+  max-height: 180px;
 }
 
-.socials{
-    display:flex;
-    gap:10px;
+.banner-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  display: block;
+  transition: transform .6s ease;
 }
 
-.socials a{
-    width:42px;
-    height:42px;
-    border-radius:12px;
-    background:#f4f4fb;
-    text-decoration:none;
-    color:var(--primary);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-    transition:.3s;
+.banner-wrap:hover img {
+  transform: scale(1.02);
 }
 
-.socials a:hover{
-    background:var(--primary);
-    color:#fff;
+/* on mobile, let the banner breathe a bit more */
+@media (max-width: 900px) {
+  .banner-wrap {
+    max-height: 140px;
+  }
 }
 
-/* mobile */
-@media(max-width:980px){
-
-.content{
-    grid-template-columns:1fr;
+@media (max-width: 540px) {
+  .banner-wrap {
+    max-height: 110px;
+  }
 }
 
-h1{
-    font-size:44px;
+/* contact card */
+.contact-card {
+  flex: 1;
+  padding: 36px 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
+.contact-card h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--ink);
 }
 
-@media(max-width:680px){
-
-.content{
-    padding:28px;
+.contact-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.footer{
-    padding:22px 28px;
-    flex-direction:column;
+.c-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-h1{
-    font-size:34px;
+.c-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: #f0f0fd;
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.desc{
-    font-size:16px;
+.c-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--brand);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.btns{
-    flex-direction:column;
+.c-text strong {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 2px;
 }
 
-.btn{
-    text-align:center;
+.c-text a,
+.c-text span {
+  font-size: 15px;
+  color: var(--ink2);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color .2s;
 }
 
+.c-text a:hover {
+  color: var(--brand);
 }
 
+/* ── footer ── */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 20px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: rgba(246,246,250,.7);
+  animation: fadeUp .6s .3s ease both;
+}
+
+footer small {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+}
+
+.socials a {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--white);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: border-color .2s, color .2s, background .2s;
+}
+
+.socials a:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+  background: #f0f0fd;
+}
+
+.socials a svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ── keyframes ── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── responsive ── */
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-left { order: 1; }
+  .hero-right { 
+    order: 0;
+    border-left: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  nav { padding: 16px 22px; }
+
+  .hero-left { padding: 44px 28px 52px; }
+
+  .contact-card { padding: 26px 28px; }
+
+  footer { padding: 18px 28px; }
+}
+
+@media (max-width: 540px) {
+  nav { padding: 14px 18px; }
+
+  .nav-logo span { font-size: 15px; }
+
+  .nav-pill { padding: 7px 13px; font-size: 11px; }
+
+  h1 { font-size: 30px; letter-spacing: -.025em; }
+
+  .desc { font-size: 15px; margin-bottom: 32px; }
+
+  .hero-left { padding: 36px 20px 44px; }
+
+  .actions { flex-direction: column; }
+
+  .btn { text-align: center; padding: 14px 20px; font-size: 14.5px; }
+
+  .strip { flex-wrap: wrap; gap: 8px; }
+
+  .contact-card {
+    padding: 22px 20px;
+    gap: 18px;
+  }
+
+  /* two-column grid for contact rows on mobile */
+  .contact-rows {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* services row spans full width */
+  .contact-rows .c-row:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .contact-card h3 { font-size: 17px; }
+
+  .c-text a, .c-text span { font-size: 13.5px; }
+
+  .c-icon { width: 38px; height: 38px; border-radius: 10px; }
+
+  footer {
+    padding: 16px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
 </style>
 </head>
 
 <body>
+<div class="page">
 
-<div class="wrapper">
-<div class="container">
+  <!-- nav -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="logo.png" alt="Zenora Tech">
+      <span>Zenora Tech</span>
+    </a>
+    <div class="nav-pill">
+      <div class="pulse"></div>
+      Coming Soon
+    </div>
+  </nav>
 
-    <!-- top banner -->
-    <div class="banner">
+  <!-- hero -->
+  <main>
+
+    <!-- left -->
+    <div class="hero-left">
+
+      <div class="eyebrow">Under Development</div>
+
+      <h1>
+        Building the<br>
+        Future of <em>Digital<br>
+        Innovation</em>
+      </h1>
+
+      <p class="desc">
+        Our official website is currently under development.
+        Zenora Tech delivers premium software services, branding solutions,
+        websites, mobile apps, AI systems and digital growth strategies for modern businesses.
+      </p>
+
+      <div class="actions">
+        <a href="mailto:info@zenoratech.com.np" class="btn btn-primary">Contact Us</a>
+        <a href="tel:9768444375" class="btn btn-ghost">Call Now</a>
+      </div>
+
+      <div class="strip">
+        <span class="tag">Web</span>
+        <span class="tag">App</span>
+        <span class="tag">AI</span>
+        <span class="tag">Branding</span>
+        <span class="tag">Marketing</span>
+      </div>
+
+    </div>
+
+    <!-- right -->
+    <div class="hero-right">
+
+      <div class="banner-wrap">
         <img src="banner.png" alt="Zenora Tech Banner">
-    </div>
+      </div>
 
-    <!-- main -->
-    <div class="content">
+      <div class="contact-card">
+        <h3>Get In Touch</h3>
 
-        <div>
-            <div class="badge">COMING SOON</div>
+        <div class="contact-rows">
 
-            <h1>
-                Building the <br> Future of <span>Digital <br> Innovation</span>
-                <!-- Smart Digital Solutions <br>
-                Crafted by <span>Zenora Tech</span> -->
-            </h1>
-
-            <p class="desc">
-                Our official website is currently under development.  
-                Zenora Tech delivers premium software services, branding solutions,
-                websites, mobile apps, AI systems and digital growth strategies for modern businesses.
-            </p>
-
-            <div class="btns">
-                <a href="mailto:info@zenoratech.com.np" class="btn primary-btn">Contact Us</a>
-                <a href="tel:9768444375" class="btn outline-btn">Call Now</a>
+          <div class="c-row">
+            <div class="c-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
             </div>
-        </div>
-
-        <div class="card">
-
-            <h3>Get In Touch</h3>
-
-            <div class="info">
-
-                <div class="row">
-                    <div class="icon">☎</div>
-                    <div>
-                        <strong>Phone</strong>
-                        <span>9768444375</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="icon">✉</div>
-                    <div>
-                        <strong>Email</strong>
-                        <span>info@zenoratech.com.np</span>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="icon">⚡</div>
-                    <div>
-                        <strong>Services</strong>
-                        <span>Web • App • AI • Branding • Marketing</span>
-                    </div>
-                </div>
-
+            <div class="c-text">
+              <strong>Phone</strong>
+              <a href="tel:9768444375">9768444375</a>
             </div>
+          </div>
+
+          <div class="c-row">
+            <div class="c-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="c-text">
+              <strong>Email</strong>
+              <a href="mailto:info@zenoratech.com.np">info@zenoratech.com.np</a>
+            </div>
+          </div>
+
+          <div class="c-row">
+            <div class="c-icon">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="c-text">
+              <strong>Services</strong>
+              <span>Web · App · AI · Branding · Marketing</span>
+            </div>
+          </div>
 
         </div>
+      </div>
 
     </div>
 
-    <!-- footer -->
-    <div class="footer">
-        <small>© 2026 Zenora Tech Pvt. Ltd. All Rights Reserved.</small>
+  </main>
 
-        <div class="socials">
-            <a href="https://www.facebook.com/profile.php?id=61589228480939">f</a>
-            <a href="https://www.instagram.com/zenoratech.np/">i</a>
-        </div>
+  <!-- footer -->
+  <footer>
+    <small>© 2026 Zenora Tech Pvt. Ltd. All Rights Reserved.</small>
+
+    <div class="socials">
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/profile.php?id=61589228480939" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/zenoratech.np/" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="var(--bg)"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="var(--bg)" stroke-width="2"/></svg>
+      </a>
     </div>
+  </footer>
 
 </div>
-</div>
-
 </body>
 </html>
